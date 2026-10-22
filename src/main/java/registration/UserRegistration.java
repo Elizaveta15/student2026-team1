@@ -17,10 +17,10 @@ public class UserRegistration {
         return matcher.matches();
     }
 
-    // Базовая реализация: пароль не короче 6 символов
 
+    // Базовая реализация: пароль не короче 6 символов и имеет хотя бы одну заглавную букву
     public boolean validatePassword(String password) {
-        return password != null && password.length() >= 6;
+        return password != null && password.length() >= 6 && password.matches(".*[A-ZА-ЯЁ].*");
     }
 
     public boolean isConfirmPassword(String password, String confirmPassword) {

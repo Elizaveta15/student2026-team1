@@ -19,7 +19,7 @@ class UserRegistrationTest {
 
     @Test
     void validPasswordReturnsTrue() {
-        assertTrue(reg.validatePassword("secret123"));
+        assertTrue(reg.validatePassword("Secret123"));
     }
 
     @Test
@@ -28,9 +28,14 @@ class UserRegistrationTest {
     }
 
     @Test
+    void nonCapitalPasswordReturnsFalse() {
+        assertFalse(reg.validatePassword("secret123"));
+    }
+
+    @Test
     void matchingPasswordsRegisterSuccessfully() {
         assertDoesNotThrow(() ->
-            reg.register("student@example.com", "secret123", "secret123", "student"));
+            reg.register("student@example.com", "Secret123", "Secret123", "student"));
     }
 
     @Test
