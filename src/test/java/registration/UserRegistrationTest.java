@@ -35,7 +35,7 @@ class UserRegistrationTest {
     @Test
     void matchingPasswordsRegisterSuccessfully() {
         assertDoesNotThrow(() ->
-            reg.register("student@example.com", "secret123", "secret123", "student01"));
+            reg.register("student@example.com", "Secret123", "Secret123", "student01"));
     }
 
     @Test
