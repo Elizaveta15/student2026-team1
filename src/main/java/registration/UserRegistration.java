@@ -1,17 +1,25 @@
 package registration;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserRegistration {
 
-    // Базовая реализация: email валиден, если содержит "@" и "."
-     public boolean validateEmail(String email) {
-        if (email == null || email.isBlank()) {
+    private static final String EMAIL_PATTERN = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+
+    // Email валиден, если подходит под маску
+    public boolean validateEmail(String email) {
+        if (email == null) {
             return false;
         }
-        return email.contains("@") && email.contains(".");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     // Базовая реализация: пароль не короче 6 символов
-     public boolean validatePassword(String password) {
+
+    public boolean validatePassword(String password) {
         return password != null && password.length() >= 6;
     }
 
@@ -19,9 +27,13 @@ public class UserRegistration {
     public boolean validateUsername(String username) {
         return username != null && username.length() >= 8;
     }
+  
+    public boolean isConfirmPassword(String password, String confirmPassword) {
+        return password != null && password.equals(confirmPassword);
+    }
 
     // Базовая реализация: проверка совпадения паролей
-     public void register(String email, String password, String confirmPassword, String username)
+    public void register(String email, String password, String confirmPassword, String username)
             throws RegistrationException {
         if (!validateUsername(username)) {
             throw new RegistrationException("Имя пользователя слишком короткое");
@@ -32,7 +44,7 @@ public class UserRegistration {
         if (!validatePassword(password)) {
             throw new RegistrationException("Пароль слишком короткий");
         }
-        if (!password.equals(confirmPassword)) {
+        if (!isConfirmPassword(password, confirmPassword)) {
             throw new RegistrationException("Пароли не совпадают");
         }
     }
