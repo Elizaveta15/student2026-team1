@@ -19,12 +19,17 @@ class UserRegistrationTest {
 
     @Test
     void validPasswordReturnsTrue() {
-        assertTrue(reg.validatePassword("secret123"));
+        assertTrue(reg.validatePassword("Secret123"));
     }
 
     @Test
     void shortPasswordReturnsFalse() {
         assertFalse(reg.validatePassword("123"));
+    }
+
+    @Test
+    void nonCapitalPasswordReturnsFalse() {
+        assertFalse(reg.validatePassword("secret123"));
     }
 
     @Test
@@ -38,4 +43,19 @@ class UserRegistrationTest {
         assertThrows(RegistrationException.class, () ->
             reg.register("student@example.com", "secret123", "different", "student01"));
     }  
+
+    @Test
+    void validLatinUserNameTrue() {
+        assertTrue(reg.validateLatinUsername("Lololoshka"));
+    }
+
+    @Test
+    void validLatinUserNameFalse1() {
+        assertFalse(reg.validateLatinUsername("Lo"));
+    }
+
+    @Test
+    void validLatinUserNameFalse2() {
+        assertFalse(reg.validateLatinUsername("Чебурек"));
+    }
 }

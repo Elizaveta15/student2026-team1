@@ -17,10 +17,10 @@ public class UserRegistration {
         return matcher.matches();
     }
 
-    // Базовая реализация: пароль не короче 6 символов
 
+    // Базовая реализация: пароль не короче 6 символов и имеет хотя бы одну заглавную букву
     public boolean validatePassword(String password) {
-        return password != null && password.length() >= 6;
+        return password != null && password.length() >= 6 && password.matches(".*[A-ZА-ЯЁ].*");
     }
 
     // Проверка: имя пользователя не короче 8 символов
@@ -47,5 +47,9 @@ public class UserRegistration {
         if (!isConfirmPassword(password, confirmPassword)) {
             throw new RegistrationException("Пароли не совпадают");
         }
+    }
+
+    public boolean validateLatinUsername(String username) {
+        return Pattern.compile("[A-Za-z]{3,}").matcher(username).matches();
     }
 }
