@@ -30,12 +30,12 @@ class UserRegistrationTest {
     @Test
     void matchingPasswordsRegisterSuccessfully() {
         assertDoesNotThrow(() ->
-            reg.register("student@example.com", "secret123", "secret123", "student"));
+            reg.register("student@example.com", "secret123", "secret123", "student01"));
     }
 
     @Test
     void mismatchedPasswordsThrowException() {
         assertThrows(RegistrationException.class, () ->
-            reg.register("student@example.com", "secret123", "different", "student"));
+            reg.register("student@example.com", "secret123", "different", "student01"));
     }  
 }
